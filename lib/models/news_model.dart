@@ -13,10 +13,9 @@ class NewsResponse {
     return NewsResponse(
       status: json['status'],
       totalResults: json['totalResults'],
-      articles:
-          (json['articles'] as List)
-              .map((article) => Article.fromJson(article))
-              .toList(),
+      articles: List<Article>.from(
+        json['articles'].map((article) => Article.fromJson(article)),
+      ),
     );
   }
 }
@@ -25,21 +24,21 @@ class Article {
   final Source source;
   final String? author;
   final String title;
-  final String description;
+  final String? description;
   final String url;
-  final String urlToImage;
+  final String? urlToImage;
   final String publishedAt;
-  final String content;
+  final String? content;
 
   Article({
     required this.source,
     this.author,
     required this.title,
-    required this.description,
+    this.description,
     required this.url,
-    required this.urlToImage,
+    this.urlToImage,
     required this.publishedAt,
-    required this.content,
+    this.content,
   });
 
   factory Article.fromJson(Map<String, dynamic> json) {
